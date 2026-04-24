@@ -2,7 +2,7 @@ const navToggle = document.querySelector(".nav-toggle");
 const navLinks = document.querySelector(".nav-links");
 const navItems = document.querySelectorAll(".nav-links a");
 const revealItems = document.querySelectorAll(
-  ".hero-copy, .hero-card, .skill-card, .timeline-item, .education-card, .contact-card"
+  ".hero-copy, .hero-card, .skill-card, .project-card, .timeline-item, .education-card, .contact-card"
 );
 
 if (navToggle && navLinks) {

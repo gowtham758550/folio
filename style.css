@@ -124,6 +124,7 @@ a {
 .hero-copy,
 .hero-card,
 .skill-card,
+.project-card,
 .timeline-item,
 .education-card,
 .contact-card {
@@ -253,7 +254,14 @@ a {
   margin-top: 1.5rem;
 }
 
+.projects-grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
 .skill-card,
+.project-card,
 .education-card,
 .contact-card {
   padding: 1.5rem;
@@ -264,6 +272,59 @@ a {
   margin-bottom: 0.75rem;
   font-size: 1.2rem;
   letter-spacing: -0.04em;
+}
+
+.project-card {
+  background: rgba(255, 250, 241, 0.82);
+}
+
+.project-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.project-kicker {
+  margin: 0 0 0.5rem;
+  color: var(--accent-dark);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.project-card h3 {
+  margin: 0;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: -0.04em;
+}
+
+.project-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.project-link:hover,
+.project-link:focus-visible {
+  color: var(--accent);
+  border-color: rgba(200, 76, 29, 0.3);
 }
 
 .timeline {
@@ -317,6 +378,7 @@ a {
 
 .timeline-item,
 .skill-card,
+.project-card,
 .education-card,
 .contact-card,
 .hero-card,
@@ -327,6 +389,7 @@ a {
 
 .js-enabled .timeline-item,
 .js-enabled .skill-card,
+.js-enabled .project-card,
 .js-enabled .education-card,
 .js-enabled .contact-card,
 .js-enabled .hero-card,
@@ -390,9 +453,14 @@ a {
   .hero-card,
   .timeline-item,
   .skill-card,
+  .project-card,
   .education-card,
   .contact-card {
     padding: 1.25rem;
+  }
+
+  .project-header {
+    flex-direction: column;
   }
 }
 
