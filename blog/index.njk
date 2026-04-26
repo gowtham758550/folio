@@ -1,0 +1,23 @@
+---
+layout: base.njk
+title: Blog
+---
+<section class="section">
+  <div class="section-heading">
+    <p class="section-tag">Blog</p>
+    <h2>Writing on engineering, AI, and product development.</h2>
+  </div>
+  <div class="blog-list">
+    {% for post in collections.post | reverse %}
+    <article class="blog-card">
+      <time class="blog-date">{{ post.date | readableDate }}</time>
+      <h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
+      {% if post.data.description %}
+      <p>{{ post.data.description }}</p>
+      {% endif %}
+    </article>
+    {% else %}
+    <p>No posts yet.</p>
+    {% endfor %}
+  </div>
+</section>
