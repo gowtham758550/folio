@@ -32,7 +32,115 @@
   <script src="/script.js"></script>
   <script type="module">
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    mermaid.initialize({ startOnLoad: false, theme: 'neutral' });
+
+    const diagrams = document.querySelectorAll('.mermaid');
+    if (diagrams.length) {
+      await mermaid.run({ nodes: diagrams });
+
+      // Build lightbox DOM
+      const overlay = document.createElement('div');
+      overlay.className = 'mlb';
+      overlay.innerHTML = `
+        <div class="mlb-inner">
+          <div class="mlb-viewport"></div>
+        </div>
+        <div class="mlb-controls">
+          <button class="mlb-btn" data-action="out">−</button>
+          <button class="mlb-btn" data-action="reset">Reset</button>
+          <button class="mlb-btn" data-action="in">+</button>
+          <button class="mlb-btn mlb-close" data-action="close">✕</button>
+        </div>
+      `;
+      document.body.appendChild(overlay);
+
+      const viewport = overlay.querySelector('.mlb-viewport');
+      const inner    = overlay.querySelector('.mlb-inner');
+      let scale = 1;
+      let baseW = 800;
+      let baseH = 600;
+
+      const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
+
+      // Zoom toward a focal point in content-space coords.
+      // fv = where that point sits in the inner container (viewport pixels).
+      function zoom(newScale, fcx, fcy, fvx, fvy) {
+        scale = clamp(newScale, 0.25, 6);
+        viewport.style.width  = (baseW * scale) + 'px';
+        viewport.style.height = (baseH * scale) + 'px';
+        inner.scrollLeft = fcx * scale - fvx;
+        inner.scrollTop  = fcy * scale - fvy;
+      }
+
+      // Zoom toward center of currently visible area (buttons).
+      function setScale(newScale) {
+        const fcx = (inner.scrollLeft + inner.clientWidth  / 2) / scale;
+        const fcy = (inner.scrollTop  + inner.clientHeight / 2) / scale;
+        zoom(newScale, fcx, fcy, inner.clientWidth / 2, inner.clientHeight / 2);
+      }
+
+      function open(svg) {
+        const vb = svg.getAttribute('viewBox');
+        if (vb) {
+          const p = vb.trim().split(/[\s,]+/);
+          baseW = parseFloat(p[2]) || 800;
+          baseH = parseFloat(p[3]) || 600;
+        } else {
+          const r = svg.getBoundingClientRect();
+          baseW = r.width  || 800;
+          baseH = r.height || 600;
+        }
+        viewport.innerHTML = '';
+        const clone = svg.cloneNode(true);
+        clone.removeAttribute('width');
+        clone.removeAttribute('height');
+        clone.style.cssText = 'width:100%;height:100%;display:block;';
+        viewport.appendChild(clone);
+        scale = 1;
+        viewport.style.width  = baseW + 'px';
+        viewport.style.height = baseH + 'px';
+        inner.scrollLeft = 0;
+        inner.scrollTop  = 0;
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function close() {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      overlay.addEventListener('click', e => {
+        const action = e.target.closest('[data-action]')?.dataset.action;
+        if (action === 'in')    { setScale(scale * 1.3); return; }
+        if (action === 'out')   { setScale(scale / 1.3); return; }
+        if (action === 'reset') { setScale(1); return; }
+        if (action === 'close' || e.target === overlay) close();
+      });
+
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') close();
+      });
+
+      // Zoom toward mouse cursor position on wheel.
+      overlay.addEventListener('wheel', e => {
+        e.preventDefault();
+        const rect = inner.getBoundingClientRect();
+        const fvx = e.clientX - rect.left;   // mouse x inside inner
+        const fvy = e.clientY - rect.top;    // mouse y inside inner
+        const fcx = (inner.scrollLeft + fvx) / scale;  // content coords
+        const fcy = (inner.scrollTop  + fvy) / scale;
+        zoom(scale * (e.deltaY < 0 ? 1.1 : 0.9), fcx, fcy, fvx, fvy);
+      }, { passive: false });
+
+      diagrams.forEach(pre => {
+        pre.classList.add('mermaid-zoomable');
+        pre.addEventListener('click', () => {
+          const svg = pre.querySelector('svg');
+          if (svg) open(svg);
+        });
+      });
+    }
   </script>
 </body>
 </html>

@@ -596,3 +596,79 @@ a {
 .post-body tr:last-child td {
   border-bottom: none;
 }
+
+/* Mermaid lightbox */
+.mermaid-zoomable {
+  cursor: zoom-in;
+  transition: opacity 0.15s;
+}
+
+.mermaid-zoomable:hover {
+  opacity: 0.85;
+}
+
+.mlb {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.88);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  backdrop-filter: blur(4px);
+}
+
+.mlb.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.mlb-inner {
+  background: #fffaf1;
+  border-radius: 16px;
+  padding: 2rem;
+  width: 88vw;
+  height: 80vh;
+  overflow: auto;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.4);
+}
+
+.mlb-viewport {
+  min-width: 480px;
+}
+
+.mlb-controls {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 1001;
+}
+
+.mlb-btn {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  border-radius: 10px;
+  padding: 0.5rem 1.1rem;
+  font-size: 1rem;
+  font-family: "Space Grotesk", sans-serif;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: background 0.15s;
+}
+
+.mlb-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.mlb-close {
+  margin-left: 0.5rem;
+  border-color: rgba(200, 76, 29, 0.5);
+  color: #f4a98a;
+}
