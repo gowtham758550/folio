@@ -236,11 +236,13 @@ a {
   align-items: start;
 }
 
+.section-heading h1,
 .section-heading h2 {
   margin: 0;
   font-size: clamp(1.8rem, 4vw, 3rem);
   letter-spacing: -0.05em;
   line-height: 1;
+  font-family: "Space Grotesk", sans-serif;
 }
 
 .section-body {
@@ -475,4 +477,122 @@ a {
     animation: none !important;
     transition: none !important;
   }
+}
+
+/* Blog pages */
+.page-main {
+  padding-top: 6rem;
+}
+
+/* Blog */
+.blog-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 720px;
+  margin-top: 2rem;
+}
+
+.blog-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.5rem 2rem;
+}
+
+.blog-card h3 {
+  margin: 0.25rem 0 0.5rem;
+  font-size: 1.2rem;
+}
+
+.blog-card h3 a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.blog-card h3 a:hover {
+  color: var(--accent);
+}
+
+.blog-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.blog-date {
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-family: "Space Grotesk", sans-serif;
+  letter-spacing: 0.04em;
+}
+
+.post-article {
+  max-width: 720px;
+}
+
+.post-body {
+  line-height: 1.8;
+  color: var(--text);
+  margin-top: 2rem;
+}
+
+.post-body h2 {
+  margin-top: 2rem;
+}
+
+.post-body pre {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  font-size: 0.9rem;
+}
+
+.post-body code {
+  font-size: 0.9em;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+}
+
+.post-body pre code {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.post-back {
+  display: inline-block;
+  margin-top: 2.5rem;
+}
+
+.post-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+}
+
+.post-body th,
+.post-body td {
+  text-align: left;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.post-body th {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 600;
+  color: var(--muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--line);
+}
+
+.post-body tr:last-child td {
+  border-bottom: none;
 }
