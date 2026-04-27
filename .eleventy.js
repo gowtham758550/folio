@@ -4,6 +4,8 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("asset");
   eleventyConfig.addPassthroughCopy("CNAME");
 
+  eleventyConfig.ignores.add("**/CLAUDE.md");
+
   eleventyConfig.addFilter("readableDate", (dateObj) => {
     return new Date(dateObj).toLocaleDateString("en-US", {
       year: "numeric",

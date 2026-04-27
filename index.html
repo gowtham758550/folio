@@ -17,6 +17,14 @@
   <link rel="stylesheet" href="style.css">
   <script>
     document.documentElement.classList.add("js-enabled");
+    (function () {
+      try {
+        var saved = localStorage.getItem("theme");
+        if (saved === "dark" || saved === "light") {
+          document.documentElement.setAttribute("data-theme", saved);
+        }
+      } catch (e) {}
+    })();
   </script>
 </head>
 <body>
@@ -36,6 +44,10 @@
         <a href="#education">Education</a>
         <a href="#contact">Contact</a>
         <a href="/blog/">Blog</a>
+        <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <span class="theme-icon-light" aria-hidden="true">☀</span>
+          <span class="theme-icon-dark" aria-hidden="true">☾</span>
+        </button>
       </div>
     </nav>
 

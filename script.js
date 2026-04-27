@@ -1,3 +1,17 @@
+const themeToggle = document.querySelector(".theme-toggle");
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    const root = document.documentElement;
+    const current = root.getAttribute("data-theme");
+    const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const effective = current || (systemDark ? "dark" : "light");
+    const next = effective === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("theme", next); } catch (e) {}
+    window.dispatchEvent(new CustomEvent("themechange", { detail: { theme: next } }));
+  });
+}
+
 const navToggle = document.querySelector(".nav-toggle");
 const navLinks = document.querySelector(".nav-links");
 const navItems = document.querySelectorAll(".nav-links a");

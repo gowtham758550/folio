@@ -10,6 +10,59 @@
   --shadow: 0 24px 70px rgba(34, 28, 20, 0.12);
   --radius: 24px;
   --max-width: 1120px;
+  --body-gradient:
+    radial-gradient(circle at top left, rgba(200, 76, 29, 0.18), transparent 30%),
+    radial-gradient(circle at right, rgba(82, 128, 120, 0.16), transparent 24%),
+    linear-gradient(180deg, #f9f5eb 0%, #f3ead9 100%);
+  --nav-bg: rgba(255, 250, 241, 0.72);
+  --button-secondary-bg: rgba(255, 255, 255, 0.55);
+  --project-card-bg: rgba(255, 250, 241, 0.82);
+  --project-link-bg: #fff;
+  --lightbox-inner-bg: #fffaf1;
+}
+
+[data-theme="dark"] {
+  --bg: #0f1414;
+  --surface: rgba(28, 36, 36, 0.72);
+  --surface-strong: #1a2222;
+  --text: #ecece4;
+  --muted: #9aa6a6;
+  --line: rgba(236, 236, 228, 0.14);
+  --accent: #ff7a45;
+  --accent-dark: #ffb08a;
+  --shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
+  --body-gradient:
+    radial-gradient(circle at top left, rgba(200, 76, 29, 0.22), transparent 30%),
+    radial-gradient(circle at right, rgba(82, 128, 120, 0.18), transparent 24%),
+    linear-gradient(180deg, #0f1414 0%, #161d1d 100%);
+  --nav-bg: rgba(20, 26, 26, 0.72);
+  --button-secondary-bg: rgba(236, 236, 228, 0.06);
+  --project-card-bg: rgba(28, 36, 36, 0.82);
+  --project-link-bg: rgba(236, 236, 228, 0.06);
+  --lightbox-inner-bg: #1a2222;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1414;
+    --surface: rgba(28, 36, 36, 0.72);
+    --surface-strong: #1a2222;
+    --text: #ecece4;
+    --muted: #9aa6a6;
+    --line: rgba(236, 236, 228, 0.14);
+    --accent: #ff7a45;
+    --accent-dark: #ffb08a;
+    --shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
+    --body-gradient:
+      radial-gradient(circle at top left, rgba(200, 76, 29, 0.22), transparent 30%),
+      radial-gradient(circle at right, rgba(82, 128, 120, 0.18), transparent 24%),
+      linear-gradient(180deg, #0f1414 0%, #161d1d 100%);
+    --nav-bg: rgba(20, 26, 26, 0.72);
+    --button-secondary-bg: rgba(236, 236, 228, 0.06);
+    --project-card-bg: rgba(28, 36, 36, 0.82);
+    --project-link-bg: rgba(236, 236, 228, 0.06);
+    --lightbox-inner-bg: #1a2222;
+  }
 }
 
 * {
@@ -24,10 +77,7 @@ body {
   margin: 0;
   font-family: "Manrope", sans-serif;
   color: var(--text);
-  background:
-    radial-gradient(circle at top left, rgba(200, 76, 29, 0.18), transparent 30%),
-    radial-gradient(circle at right, rgba(82, 128, 120, 0.16), transparent 24%),
-    linear-gradient(180deg, #f9f5eb 0%, #f3ead9 100%);
+  background: var(--body-gradient);
 }
 
 a {
@@ -52,7 +102,7 @@ a {
   gap: 1rem;
   padding: 0.9rem 1.1rem;
   margin-top: 0.75rem;
-  background: rgba(255, 250, 241, 0.72);
+  background: var(--nav-bg);
   border: 1px solid var(--line);
   border-radius: 999px;
   backdrop-filter: blur(12px);
@@ -204,7 +254,7 @@ a {
 
 .button-secondary {
   border-color: var(--line);
-  background: rgba(255, 255, 255, 0.55);
+  background: var(--button-secondary-bg);
 }
 
 .hero-card {
@@ -277,7 +327,7 @@ a {
 }
 
 .project-card {
-  background: rgba(255, 250, 241, 0.82);
+  background: var(--project-card-bg);
 }
 
 .project-header {
@@ -318,7 +368,7 @@ a {
   padding: 0.7rem 1rem;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: #fff;
+  background: var(--project-link-bg);
   font-weight: 700;
   white-space: nowrap;
 }
@@ -627,7 +677,7 @@ a {
 }
 
 .mlb-inner {
-  background: #fffaf1;
+  background: var(--lightbox-inner-bg);
   border-radius: 16px;
   padding: 2rem;
   width: 88vw;
@@ -671,4 +721,44 @@ a {
   margin-left: 0.5rem;
   border-color: rgba(200, 76, 29, 0.5);
   color: #f4a98a;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-left: 0.5rem;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  color: var(--accent);
+  border-color: rgba(200, 76, 29, 0.3);
+}
+
+.theme-toggle .theme-icon-dark { display: none; }
+[data-theme="dark"] .theme-toggle .theme-icon-light { display: none; }
+[data-theme="dark"] .theme-toggle .theme-icon-dark { display: inline; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle .theme-icon-light { display: none; }
+  :root:not([data-theme="light"]) .theme-toggle .theme-icon-dark { display: inline; }
+}
+
+@media (max-width: 720px) {
+  .theme-toggle {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
 }
